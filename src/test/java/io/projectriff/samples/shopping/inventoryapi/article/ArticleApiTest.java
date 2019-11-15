@@ -83,4 +83,13 @@ class ArticleApiTest {
     mockMvc.perform(delete("/api/article/?sku={sku}", article1.getSku()))
       .andExpect(status().isNoContent());
   }
+
+  @Test
+  @DisplayName("blows up if article is invalid")
+  void fails_with_a_zeroed_price() throws Exception {
+    mockMvc.perform(post("/api/article")
+      .contentType(APPLICATION_JSON)
+      .content("{}"))
+      .andExpect(status().isBadRequest()); //FIXME: payload is far from ideal
+  }
 }
